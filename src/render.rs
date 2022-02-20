@@ -1,4 +1,5 @@
 use crate::frame::Frame;
+// use crate::scorebar::ScoreBar;
 use crossterm::cursor::MoveTo;
 use crossterm::style::{Color, SetBackgroundColor};
 use crossterm::terminal::{Clear, ClearType};
@@ -11,6 +12,7 @@ pub fn render(stdout: &mut Stdout, last_frame: &Frame, current_frame: &Frame, fo
         stdout.queue(Clear(ClearType::All)).unwrap();
         stdout.queue(SetBackgroundColor(Color::Black)).unwrap();
     }
+    
     for (x, col) in current_frame.iter().enumerate() {
         for (y, s) in col.iter().enumerate() {
             if *s != last_frame[x][y] || force {

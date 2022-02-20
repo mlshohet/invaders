@@ -96,9 +96,9 @@ impl Drawable for Invaders {
         for invader in self.army.iter() {
             frame[invader.x][invader.y] = if (self.move_timer.time_left.as_secs_f32()
             / self.move_timer.duration.as_secs_f32()) > 0.5 {
-                "x"
+                "x".to_string()
             } else {
-                "+"
+                "+".to_string()
             };
         }
     }

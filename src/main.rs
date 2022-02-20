@@ -5,11 +5,12 @@ use crossterm::ExecutableCommand;
 use invaders::player::Player;
 use invaders::{
     frame::{self, new_frame, Drawable},
+    scorebar::{self},
     invaders::Invaders,
     //level::Level,
     // menu::Menu,
     render,
-    //score::Score,
+   score::Score,
 };
 use rusty_audio::Audio;
 use std::{
@@ -55,13 +56,13 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut player = Player::new();
     let mut instant = Instant::now();
     let mut invaders = Invaders::new();
+    let mut score = Score::new();
 
     'gameloop: loop {
         // Per frame intialization
         let delta = instant.elapsed();
         instant = Instant::now();
         let mut curr_frame = new_frame();
-
         // Input
         while event::poll(Duration::default())? {
             if let Event::Key(key_event) = event::read()? {
@@ -90,10 +91,12 @@ fn main() -> Result<(), Box<dyn Error>> {
 
         if player.detect_hits(&mut invaders) {
             audio.play("explode");
+            score.update_score();
         }
 
         // Draw and render
-        let drawables: Vec<&dyn Drawable> = vec![&player, &invaders];
+       
+        let drawables: Vec<&dyn Drawable> = vec![&player, &invaders, &score];
         for drawable in drawables {
             drawable.draw(&mut curr_frame);
         }

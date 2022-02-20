@@ -58,7 +58,12 @@ impl Player {
 
 impl Drawable for Player {
     fn draw(&self, frame: &mut Frame) {
-        frame[self.x][self.y] = "A";
+        let mut x_coord = self.x;
+        if self.x == NUM_COLS
+        { 
+            x_coord = NUM_COLS-1;
+        }
+        frame[x_coord][self.y] = "A".to_string();
         for shot in self.shots.iter() {
             shot.draw(frame);
         }
