@@ -19,6 +19,6 @@ impl Score {
 
 impl Drawable for Score {
     fn draw (&self, frame: &mut Frame) {
-        frame[0][0] = format!("Score: {}", self.x);
+        frame[0][0] = format!("SCORE: {}", self.x);
     }
 }
